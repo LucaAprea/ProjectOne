@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context   
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+	<!-- Questo è il Web Application Context (definito in web.xml) -->
+
+	<!-- scanner che si occupa di trovare le classi annotate con le annotation 
+		di Spring e Spring MVC (in particolare i controller nel nostro caso) -->
+	<mvc:annotation-driven />
+	<context:component-scan base-package="com.timesheet" />
+
+	<!-- un ViewResolver permette di identificare una determinata View sulla 
+		base di una stringa (Esistono diversi tipi di View resolver, in questo caso 
+		usiamo "Internal") -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="dao" class="com.timesheet.dao.DaoDipendenteImpl">
+	</bean>
+	<bean id="daoDoc" class="com.timesheet.dao.DaoDocumentoImpl">
+	</bean>
+
+	<bean id="daoNot" class="com.timesheet.dao.DaoNotificaImpl">
+	</bean>
+
+	<bean id="dip" class="com.timesheet.model.Dipendente" scope="prototype">
+		<property name="id" value="-1"></property>
+		<property name="nome" value="..."></property>
+		<property name="cognome" value="..."></property>
+		<property name="cf" value="..."></property>
+		<property name="username" value="..."></property>
+		<property name="password" value="..."></property>
+
+	</bean>
+
+	<bean id="doc" class="com.timesheet.model.Documento" scope="prototype">
+		<property name="id" value="-1"></property>
+
+	</bean>
+	<bean id="not" class="com.timesheet.model.Notifica" scope="prototype">
+		<property name="idNotifica" value="-1"></property>
+
+	</bean>
+
+</beans>
